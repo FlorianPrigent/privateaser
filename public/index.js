@@ -179,8 +179,21 @@ function GroupsDecreseasing(event,bar)
   }
 }
 
+function CommissionCalculator()
+{
+  var totcom = 0;
+  for(var i = 0; i < events.length; i++)
+  {
+      totcom = events[i].price * 0.30;
+      events[i].commission.insurance = totcom / 2;
+      events[i].commission.treasury = events[i].persons;
+      events[i].commission.privateaser = (totcom / 2) - events[i].persons;
+  }
+}
+
 PriceCalculator();
 
+CommissionCalculator();
 
 console.log(bars);
 console.log(events);
