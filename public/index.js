@@ -204,6 +204,42 @@ PriceCalculator();
 
 CommissionCalculator();
 
+function PayTheActors()
+{
+  for(var i = 0; i < actors.length; i++)
+  {
+    for(var j = 0; j < events.length; j++)
+    {
+      if(actors[i].eventId == events[j].id)
+      {
+        PaymentUpdate(actors[i],events[j]);
+      }
+    }
+  }
+}
+
+function PaymentUpdate(actor,event)
+{
+  for(var j = 0; j < actor.payment.length; j++)
+    {  
+      if(actor.payment[j].who == 'booker') actor.payment[j].amount = event.price ;
+      if(actor.payment[j].who == 'insurance') actor.payment[j].amount = event.commission.insurance;
+      if(actor.payment[j].who == 'treasury') actor.payment[j].amount = event.commission.treasury;
+
+      if(event.options.deductibleReduction)
+      {
+        if(actor.payment[j].who == 'bar') actor.payment[j].amount = (event.price - event.persons) * 0.70;
+        if(actor.payment[j].who == 'privateaser') actor.payment[j].amount = event.commission.privateaser + event.persons;
+      }
+      else
+      {
+        if(actor.payment[j].who == 'bar') actor.payment[j].amount = event.price * 0.70;
+        if(actor.payment[j].who == 'privateaser') actor.payment[j].amount = event.commission.privateaser;
+      }
+    }
+}
+PayTheActors();
+
 console.log(bars);
 console.log(events);
 console.log(actors);
