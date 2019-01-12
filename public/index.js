@@ -1,6 +1,6 @@
 'use strict';
 
-//list of bats
+//list of bars
 //useful for ALL 5 steps
 //could be an array of objects that you fetched from api or database
 const bars = [{
@@ -145,6 +145,22 @@ const actors = [{
     'amount': 0
   }]
 }];
+
+function PriceCalculator()
+{
+  for(var j = 0; j < events.length; j++)
+  {
+    for(var i = 0; i < bars.length; i++)
+    {
+      if(bars[i].id == events[j].barId)
+      {
+        events[j].price = events[j].time * bars[i].pricePerHour + events[j].persons * bars[i].pricePerPerson;
+      }
+    }
+  }
+}
+
+PriceCalculator();
 
 console.log(bars);
 console.log(events);
