@@ -154,13 +154,33 @@ function PriceCalculator()
     {
       if(bars[i].id == events[j].barId)
       {
+        GroupsDecreseasing(events[j],bars[i])
         events[j].price = events[j].time * bars[i].pricePerHour + events[j].persons * bars[i].pricePerPerson;
       }
     }
   }
 }
 
+function GroupsDecreseasing(event,bar)
+{
+  if(event.persons > 10 && event.persons <= 20)
+  {
+    bar.pricePerPerson = bar.pricePerPerson * 0.90;
+  }
+
+  if(event.persons > 20 && event.persons <= 60)
+  {
+    bar.pricePerPerson = bar.pricePerPerson * 0.70;
+  }
+
+  if(event.persons > 60)
+  {
+    bar.pricePerPerson = bar.pricePerPerson * 0.50;
+  }
+}
+
 PriceCalculator();
+
 
 console.log(bars);
 console.log(events);
