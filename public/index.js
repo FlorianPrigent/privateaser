@@ -188,6 +188,15 @@ function CommissionCalculator()
       events[i].commission.insurance = totcom / 2;
       events[i].commission.treasury = events[i].persons;
       events[i].commission.privateaser = (totcom / 2) - events[i].persons;
+      VerifDeductible(events[i]);
+    }
+}
+
+function VerifDeductible(event)
+{
+  if(event.options.deductibleReduction)
+  {
+      event.price += event.persons;
   }
 }
 
